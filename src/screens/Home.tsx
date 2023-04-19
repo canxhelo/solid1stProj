@@ -1,27 +1,31 @@
-import { Component, For, createSignal, createUniqueId } from "solid-js";
-import { FaRegularImage,} from "solid-icons/fa";
+import { Component, For, Show, createSignal, createUniqueId, onCleanup, onMount } from "solid-js";
+import { FaRegularImage, } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
 
 
+
+
+
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");// create a signal which observes a variable and changes it everytime we set a new value to second one
-  const [glides, setGlides]=createSignal<Glide[]>([]);
+  const [glides, setGlides] = createSignal<Glide[]>([]);
+  const [displaycontent, setDisplaycontent] = createSignal(false)
   const createGlide = () => {
-   const glide:Glide={
-    id:createUniqueId(),
-    content:content(),
-    user:{
-      nickName:"User123",
-      avatar:"https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png",
+    const glide: Glide = {
+      id: createUniqueId(),
+      content: content(),
+      user: {
+        nickName: "User123",
+        avatar: "https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png",
       },
-      likeCount:0,
-      subglidesCount:0,
-      date:new Date(),
-    
-   }// me siper krijuam te dhenat per nje glide te nje useri perkates  
-   setGlides([glide,...glides()])// glide is an array dhe sintaksa push a new element to glides array by calling setGlide
+      likeCount: 0,
+      subglidesCount: 0,
+      date: new Date(),
+
+    }// me siper krijuam te dhenat per nje glide te nje useri perkates  
+    setGlides([glide, ...glides()])// glide is an array dhe sintaksa push a new element to glides array by calling setGlide
     setContent("")
     console.log(JSON.stringify(glides()))//??? dont know what exatcly  it does
   }
@@ -41,7 +45,7 @@ const HomeScreen: Component = () => {
         <div class="flex-it flex-grow">
           <div class="flex-it">
             <textarea
-            value={content()}
+              value={content()}
               onInput={(event) => {
                 setContent(event.currentTarget.value);
               }}
@@ -61,8 +65,8 @@ const HomeScreen: Component = () => {
             </div>
             <div class="flex-it w-32 mt-3 cursor-pointer">
               <button
-              onClick={createGlide}
-              //therret funksionin by clicking on element 
+                onClick={createGlide}
+                //therret funksionin by clicking on element 
                 type="button"
                 class="
                    disabled:cursor-not-allowed disabled:bg-gray-400
@@ -76,26 +80,19 @@ const HomeScreen: Component = () => {
           </div>
         </div>
         {/* MESSENGER END */}
-        
+
       </div>
       <div class="h-px bg-gray-700 my-1" />
       {/* GLIDE POST START */}
       <For each={glides()}>
         {
-          (glide)=>
-          <GlidePost glide={glide}/>
-            
-
-       
-           
+          (glide) =>
+            <GlidePost glide={glide} />
         }
 
+      </For>      
 
-      </For>
-      
-     
-      {/* GLIDE POST END */}
-      {/* HOME PAGE END */}
+
     </MainLayout>
   );
 };

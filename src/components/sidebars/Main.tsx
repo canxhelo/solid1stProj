@@ -1,6 +1,8 @@
 import { Component,For } from "solid-js";
 import { links } from "./Links";
 import { FiMoreHorizontal } from "solid-icons/fi";
+import { A } from "@solidjs/router";
+import Popup from "../utils/Popup";
 
 
 
@@ -21,7 +23,7 @@ const MainSidebar: Component = () => {
                  
                   <For each={links}>
                     {(link)=>
-                     <a class="flex-it items-start flex-grow w-full" href={link.href}>
+                     <A class="flex-it items-start flex-grow w-full" href={link.href}>
                      <div class="p-3 flex-row justify-center items-center flex-it rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200">
                       <div class="flex-it">
                        {link.icon()}
@@ -30,7 +32,7 @@ const MainSidebar: Component = () => {
                          <span class="truncate">{link.name}</span>
                        </div>
                      </div>
-                       </a>
+                       </A>
                     }
                   </For>
                 </nav>
@@ -47,6 +49,7 @@ const MainSidebar: Component = () => {
             {/* PROFILE MENU */}
             <div class="flex-it my-3 hover:cursor-pointer">
               {/* POPUP START*/}
+              <Popup/>
               <div class="flex-it items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200 cursor-pointer">
                 <div class="flex-it">
                   <div class="w-10 h-10 overflow-visible">
