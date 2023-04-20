@@ -1,4 +1,4 @@
-import { Component, For, Show, createSignal, createUniqueId, onCleanup, onMount } from "solid-js";
+import { Component, For, Show, createEffect, createSignal, createUniqueId, onCleanup, onMount } from "solid-js";
 import { FaRegularImage, } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
@@ -11,7 +11,18 @@ import { Glide } from "../types/Glide";
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");// create a signal which observes a variable and changes it everytime we set a new value to second one
   const [glides, setGlides] = createSignal<Glide[]>([]);
-  const [displaycontent, setDisplaycontent] = createSignal(false)
+  // createEffect(()=>{
+  //   if((glides().length>=3)){
+  //     alert("3 glides already")
+  //   }
+
+
+
+
+  //   console.log(glides().length)// behet call only once  pas mount dhe ben execute kur ka ndryshime ne varesi me ate qe eshte lidhur afersisht si observer 
+  //   //cl me siper ndryshon kur shtojme glide
+  // })
+
   const createGlide = () => {
     const glide: Glide = {
       id: createUniqueId(),
@@ -27,7 +38,7 @@ const HomeScreen: Component = () => {
     }// me siper krijuam te dhenat per nje glide te nje useri perkates  
     setGlides([glide, ...glides()])// glide is an array dhe sintaksa push a new element to glides array by calling setGlide
     setContent("")
-    console.log(JSON.stringify(glides()))//??? dont know what exatcly  it does
+    // console.log(JSON.stringify(glides()))//??? dont know what exatcly  it does
   }
   return (
     <MainLayout>

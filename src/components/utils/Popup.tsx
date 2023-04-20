@@ -1,20 +1,77 @@
-import { Component, Show, createSignal } from "solid-js";
+import { Component, createEffect, createSignal, onCleanup, onMount, Show } from "solid-js";
+import { Portal } from "solid-js/web";
+
+type Props = {
+    opener: Component;
+}
+
+const Popup: Component<Props> = ({ opener: Opener }) => {
+    const [isOpen, setIsOpen] = createSignal();
+
+    let followTo: HTMLDivElement;
+    let popup: HTMLDivElement;
+
+    onMount(() => {
+        window.addEventListener("resize", adjustPopup)// ndjek ate ku do qe shkon  per tu pare me pak kujdes
+        window.addEventListener("click", closePopup)
+        
+    })
+
+    onCleanup(() => {
+        window.removeEventListener("resize", adjustPopup)
+        window.removeEventListener("click", closePopup)
+     })
 
 
+    createEffect(() => {
+        if (isOpen()) {
+            adjustPopup()
 
-const Popup: Component = () => {
-    const [isOpen, setOpen] = createSignal(false)
+        }
+    })
+    const adjustPopup = () => {
+        if(!popup){return;}
+        if(!!popup){
+        const position =followTo.getBoundingClientRect()
+        popup.style.left =position.left + 'px';
+        popup.style.bottom = followTo.clientHeight + "px";
+    }
+    }
+
+
+    const closePopup = (e:MouseEvent) => {
+        if (isOpen() && !isPopupClicked(e)) {
+            setIsOpen(false)
+        }
+    }
+
+    const isPopupClicked=(e:MouseEvent) => {
+        return  popup?.contains(e.target as Node)
+    }
 
     return (
-        <div class="reative">
-            <button onClick={()=>{setOpen(!isOpen())}}>Open Me</button>
-            <Show when={isOpen()}>
+        <div class="flex-it flex-grow">
+            <div onClick={(e) => {
+                e.stopImmediatePropagation();
+                setIsOpen(!isOpen())
 
-                <div class=" flex-it w-20 h-20 fixed bg-black bottom-10 popup ">
-                    Hello World
+            }}
+                ref={followTo!}>
+                <Opener />
+            </div>
+            <Show when={isOpen()}>
+                <Portal mount={document.getElementById("popups") as Node}>
+                <div ref={popup!} class="flex-it hover:cursor-pointer fixed bg-gray-800 text-white popup z-10 rounded-2xl border-gray-700 border transition duration-1000">
+                    <div class="w-72 min-w-68 max-h-120 min-h-8 flex-it overflow-auto">
+                        <div class="flex-it flex-grow flex-shrink py-3">
+                            <div class="flex-it px-4 py-3 transition hover:bg-gray-700" >Logout</div>
+                        </div>
+                    </div>
                 </div>
+                </Portal>
             </Show>
         </div>
     )
 }
+
 export default Popup;

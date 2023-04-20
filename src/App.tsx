@@ -5,9 +5,10 @@ const App :Component = () => {
 
 
   return(
-   
+    <>
+    <div id='popups'></div>
       <AppRoutes></AppRoutes>
-    
+    </>
   )
 
 }
