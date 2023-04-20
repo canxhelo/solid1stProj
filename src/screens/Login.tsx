@@ -1,10 +1,13 @@
 import { A } from "@solidjs/router";
 import { Component } from "solid-js";
 import pageSize from "../reactive/pageSize";
+import { useAuthState } from "../context/auth";
 
 const LoginScreen: Component = () => {
- 
- 
+  const authState= useAuthState()!;
+  console.log("Is Authenticated: " +authState.isAuthenticated)
+  console.log("Is Loading: " +authState.loading)
+  
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Glider - Get In</div>

@@ -1,13 +1,9 @@
-import { Component, For, Show, createEffect, createSignal, createUniqueId, onCleanup, onMount } from "solid-js";
+import { Component, For, createSignal, createUniqueId, onMount } from "solid-js";
 import { FaRegularImage, } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
-import pageSize from "../reactive/pageSize";
-
-
-
-
+import { useAuthState } from "../context/auth";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");// create a signal which observes a variable and changes it everytime we set a new value to second one
@@ -19,6 +15,12 @@ const HomeScreen: Component = () => {
   //   console.log(glides().length)// behet call only once  pas mount dhe ben execute kur ka ndryshime ne varesi me ate qe eshte lidhur afersisht si observer 
   //   //cl me siper ndryshon kur shtojme glide
   // })
+ const authState= useAuthState()!;
+console.log("Is Authenticated: " +authState.isAuthenticated)
+console.log("Is Loading: " +authState.loading)
+
+ 
+
 
   const createGlide = () => {
     const glide: Glide = {
