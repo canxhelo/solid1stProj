@@ -3,6 +3,7 @@ import { FaRegularImage, } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
+import pageSize from "../reactive/pageSize";
 
 
 
@@ -15,10 +16,6 @@ const HomeScreen: Component = () => {
   //   if((glides().length>=3)){
   //     alert("3 glides already")
   //   }
-
-
-
-
   //   console.log(glides().length)// behet call only once  pas mount dhe ben execute kur ka ndryshime ne varesi me ate qe eshte lidhur afersisht si observer 
   //   //cl me siper ndryshon kur shtojme glide
   // })
