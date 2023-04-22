@@ -15,11 +15,6 @@ const HomeScreen: Component = () => {
   //   console.log(glides().length)// behet call only once  pas mount dhe ben execute kur ka ndryshime ne varesi me ate qe eshte lidhur afersisht si observer 
   //   //cl me siper ndryshon kur shtojme glide
   // })
- const authState= useAuthState()!;
-console.log("Is Authenticated: " +authState.isAuthenticated)
-console.log("Is Loading: " +authState.loading)
-
- 
 
 
   const createGlide = () => {
