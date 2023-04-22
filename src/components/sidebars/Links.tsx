@@ -21,11 +21,11 @@ export const links =[{
 },
 {
     name: "Notifications",//Notification
-    href:"/login",
+    href:"/auth/login",
     icon: ()=><IoNotificationsCircleOutline size={SIZE} />
 },
 {
     name: "Discover",//Discover
-    href:"/register",
+    href:"/auth/register",
     icon: ()=><RiMapCompassDiscoverLine size={SIZE} />
 }]

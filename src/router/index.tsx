@@ -1,24 +1,26 @@
-import { Route, Routes} from "@solidjs/router"
-import HomeScreen from "../screens/Home"
-import { lazy } from "solid-js"
-const LoginScreen=lazy(() =>import("../screens/Login"))
-const RegisterScreen=lazy(() =>import("../screens/Register"))
-//lazy loading import download code when we need it 
+import { Route, Routes } from "@solidjs/router";
+import HomeScreen from "../screens/Home";
+import { lazy } from "solid-js";
+import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/MainLayout";
 
+const LoginScreen = lazy(() => import("../screens/Login"));
+const RegisterScreen = lazy(() => import("../screens/Register"));
+//lazy loading import download code when we need it
 
+const AppRoute = () => {
+  return (
+    <Routes>
+      <Route path="/" component={MainLayout}>
+        <Route path="" component={HomeScreen} />
+      </Route>
 
-const AppRoute = ()=> {
+      <Route path="/auth" component={AuthLayout}>
+        <Route path="/login" component={LoginScreen} />
+        <Route path="/register" component={RegisterScreen} />
+      </Route>
+    </Routes>
+  );
+};
 
-    return (
-        <Routes>
-        <Route path="/" component={HomeScreen}/>
-        <Route path="/login" component={LoginScreen}/>
-        <Route path="/register" component={RegisterScreen}/>
-        </Routes>
-    )
-
-
-
-}
-
-export default  AppRoute;
+export default AppRoute;
