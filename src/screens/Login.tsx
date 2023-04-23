@@ -2,10 +2,10 @@ import { A } from "@solidjs/router";
 import { Component } from "solid-js";
 import pageSize from "../reactive/pageSize";
 import { useAuthState } from "../context/auth";
+import useForm from "../hooks/useForm";
 
 const LoginScreen: Component = () => {
-  
-  
+
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Glider - Get In</div>
