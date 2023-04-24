@@ -1,33 +1,34 @@
 import { A } from "@solidjs/router";
-import { Component, createSignal } from "solid-js";
-import useForm from "../hooks/useForm";
+import { Accessor, Component, createSignal } from "solid-js";
+import useForm, { maxLengthValidator } from "../hooks/useForm";
 import { RegisterForm } from "../types/Form";
+
 
 const RegisterScreen: Component = () => {
 
-  const {handleInput,submitForm}=useForm<RegisterForm>({
+  const { handleInput, submitForm ,validate} = useForm<RegisterForm>({
     fullName: '',
     nickName: '',
     email: '',
     avatar: '',
     password: '',
     passwordConfirmation: ''
-})
+  })
 
 
 
-const onFormSubmit=(form:RegisterForm)=>{
-  console.log(form)
-
-}
-
-
+  const onFormSubmit = (form: RegisterForm) => {
+    console.log(form)
   
+  }
+  
+
+
 
   return (
     <div class="flex-it justify-center items-center h-full">
 
-    
+
       <div class="text-white text-4xl font-bold">Glider - Create Account</div>
       <div class="mt-10 flex-it h-100 xs:w-100 w-full bg-white p-10 rounded-2xl">
         <div class="flex-it">
@@ -40,7 +41,8 @@ const onFormSubmit=(form:RegisterForm)=>{
                       Full Name
                     </label>
                     <input
-                    onInput={handleInput}
+                      onInput={handleInput}
+                      use:validate={[maxLengthValidator]}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -56,7 +58,7 @@ const onFormSubmit=(form:RegisterForm)=>{
                       Nick Name
                     </label>
                     <input
-                     onInput={handleInput}
+                      onInput={handleInput}
                       // setting values to form thru input eshte like observer that observe all time long}
                       type="text"
                       name="nickName"
@@ -70,7 +72,7 @@ const onFormSubmit=(form:RegisterForm)=>{
                       Email
                     </label>
                     <input
-                     onInput={handleInput}
+                      onInput={handleInput}
                       type="text"
                       name="email"
                       id="email"
@@ -83,7 +85,7 @@ const onFormSubmit=(form:RegisterForm)=>{
                       Avatar
                     </label>
                     <input
-                     onInput={handleInput}
+                      onInput={handleInput}
                       type="text"
                       name="avatar"
                       id="avatar"
@@ -96,7 +98,7 @@ const onFormSubmit=(form:RegisterForm)=>{
                       Password
                     </label>
                     <input
-                     onInput={handleInput}
+                      onInput={handleInput}
                       type="password"
                       name="password"
                       id="password"
@@ -107,10 +109,10 @@ const onFormSubmit=(form:RegisterForm)=>{
                   <div class="flex-it py-2">
                     <label class="block text-sm font-medium text-gray-700">
                       Password Confirmation
-                      
+
                     </label>
                     <input
-                     onInput={handleInput}
+                      onInput={handleInput}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
@@ -128,7 +130,7 @@ const onFormSubmit=(form:RegisterForm)=>{
               </div>
               <div class="flex-it py-2">
                 <button
-                onClick={submitForm(onFormSubmit)}
+                  onClick={submitForm(onFormSubmit)}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
